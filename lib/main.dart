@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_boilerplate_flutter/screens/meal_selection_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'cubit/meal_cubit.dart';
+import 'cubit/meal_logic.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Meal Roulette',
-      home: MealSelectionScreen(),    
+      home: BlocProvider<MealCubit>(
+        create: (context) => MealCubit(),
+        child: const MealLogic(),
+      ),    
     );
   }
 }
