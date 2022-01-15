@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_boilerplate_flutter/service/meal_service.dart';
 
 import 'cubit/meal_cubit.dart';
 import 'cubit/meal_logic.dart';
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Meal Roulette',
       home: BlocProvider<MealCubit>(
-        create: (context) => MealCubit(),
+        create: (context) => MealCubit(
+          data: MealService(),
+        ),
         child: const MealLogic(),
       ),    
     );
