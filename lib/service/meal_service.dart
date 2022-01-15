@@ -9,14 +9,26 @@ class MealService {
   Future<List<Meal>> getMeals() async {
     var response = await http.get(Uri.parse(baseUrl + "/meals"));
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
+      Map<String, dynamic> list = json.decode(response.body);
       List<Meal> meals = [];
-      for (var meal in jsonResponse) {
+
+      for (var meal in list["meal_roulette_app_meals"]) {
         meals.add(Meal.fromJson(meal));
       }
+
       return meals;
     } else {
       throw Exception('Failed to load meals');
+    }
+  }
+
+  Future<Meal> getMeal(int id) async {
+    var response = await http.get(Uri.parse(baseUrl + "/meals/$id"));
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      return Meal.fromJson(jsonResponse);
+    } else {
+      throw Exception('Failed to load meal');
     }
   }
 }
