@@ -12,20 +12,40 @@ class MealCubit extends Cubit<MealState> {
   }
 
   final MealService data;
-  late final meals;
+  late final List<Meal> meals;
+  late List<Meal> newMeals;
+  late final Meal meal;
 
   void getData() async {
     emit(MealLoading());
     try {
       meals = await data.getMeals();
+
       emit(MealLoaded(meals));
     } catch (e) {
       print(e);
     }
   }
 
-  detailPage({required Meal meal}) {
-    emit(MealDetail(meal));
+  getNewData(Meal meal) async {
+    emit(MealLoading());
+
+    try {
+      newMeals = await data.getNextFourMeals(meal);
+      emit(MealLoaded(newMeals));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  detailPage({required Meal meal}) async {
+    emit(MealLoading());
+    try {
+      meal = await data.getMeal(meal);
+      emit(MealDetail(meal));
+    } catch (e) {
+      print(e);
+    }
   }
 
   goHome() {
