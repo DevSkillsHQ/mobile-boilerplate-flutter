@@ -67,9 +67,10 @@ Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
     ConstrainedBox(
       constraints: BoxConstraints.tightFor(width: 100, height: 100),
       child: ElevatedButton(
-        child: Text(
-          'Refresh',
-          style: TextStyle(fontSize: 16),
+        child: AppText(
+          text: 'Refresh',
+          fontSize: 16,
+          isBold: true,
         ),
         onPressed: () {
           BlocProvider.of<MealCubit>(context).getData(mealId: meals.last.id > 10 ? 0 : meals.last.id);

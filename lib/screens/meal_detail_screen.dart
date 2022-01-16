@@ -41,8 +41,13 @@ Widget _buildMealDetail(BuildContext context, Meal meal) {
             left: 20.0,
             top: 30.0,
           ),
-          child: TextButton(
-            child: Text('Go back'),
+          child: TextButton.icon(
+            label: AppText(
+              text: 'Go back',
+              fontSize: 18,
+              isBold: true,
+            ),
+            icon: Icon(Icons.arrow_back),
             onPressed: () {
               BlocProvider.of<MealCubit>(context).goHome();
             },
