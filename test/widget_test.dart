@@ -1,30 +1,23 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_boilerplate_flutter/cubit/meal_cubit.dart';
+import 'package:mobile_boilerplate_flutter/data/meal.dart';
+import 'package:mobile_boilerplate_flutter/screens/meal_detail_screen.dart';
+import 'package:mobile_boilerplate_flutter/screens/meal_selection_screen.dart';
 
-import 'package:mobile_boilerplate_flutter/main.dart';
+import 'package:mobile_boilerplate_flutter/service/meal_service.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  group('MealCubit', () {
+    MealService mealService = MealService();
+    MealCubit mealCubit = MealCubit(data: mealService);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    test('should return initial state', () {
+      expect(mealCubit.state, MealInitial());
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    test('should return loading meals state', () {
+      mealCubit.getData();
+      expect(mealCubit.state, MealLoading());
+    });
   });
 }
