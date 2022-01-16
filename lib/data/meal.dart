@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-
 class Meal {
   final int id;
   final String title;
   final String imageUrl;
   final String? description;
-  final List? ingredients;
+  final String? ingredients;
 
   Meal({
     required this.id,
