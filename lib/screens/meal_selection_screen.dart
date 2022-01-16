@@ -72,7 +72,7 @@ Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
           style: TextStyle(fontSize: 16),
         ),
         onPressed: () {
-          BlocProvider.of<MealCubit>(context).getNewData(meals.last);
+          BlocProvider.of<MealCubit>(context).getData(mealId: meals.last.id > 10 ? 0 : meals.last.id);
         },
         style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
