@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_boilerplate_flutter/cubit/meal_cubit.dart';
 import 'package:mobile_boilerplate_flutter/data/meal.dart';
+import 'package:mobile_boilerplate_flutter/widgets/app_text.dart';
 import 'package:mobile_boilerplate_flutter/widgets/image_container.dart';
 
 class MealDetailScreen extends StatefulWidget {
@@ -70,16 +71,12 @@ Widget _buildMealDetail(BuildContext context, Meal meal) {
                   ),
                   const SizedBox(height: 10),
                   Divider(),
-                  Text(meal.title,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  AppText(text: meal.title, fontSize: 16, isBold: true),
                   const SizedBox(height: 10),
-                  Text(meal.description!),
+                  AppText(text: meal.description!),
                   const SizedBox(height: 10),
-                  Text('Ingredients',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text(meal.ingredients!)
+                  AppText(text: 'Ingredients', fontSize: 16, isBold: true),
+                  AppText(text: meal.ingredients!)
                 ],
               ),
             ),

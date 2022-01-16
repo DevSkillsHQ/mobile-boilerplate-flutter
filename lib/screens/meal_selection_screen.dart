@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_boilerplate_flutter/cubit/meal_cubit.dart';
 import 'package:mobile_boilerplate_flutter/data/meal.dart';
+import 'package:mobile_boilerplate_flutter/widgets/app_text.dart';
 import 'package:mobile_boilerplate_flutter/widgets/image_container.dart';
 
 class MealSelectionScreen extends StatelessWidget {
@@ -48,11 +49,8 @@ Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.22),
                   Expanded(
-                    child: Text(
-                      meals[index].title,
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
+                    child: AppText(
+                        text: meals[index].title, isBold: true, centered: true),
                   ),
                 ],
               ),
