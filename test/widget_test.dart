@@ -14,10 +14,5 @@ void main() {
     test('should return initial state', () {
       expect(mealCubit.state, MealInitial());
     });
-
-    test('should return loading meals state', () {
-      mealCubit.getData();
-      expect(mealCubit.state, MealLoading());
-    });
   });
 }
