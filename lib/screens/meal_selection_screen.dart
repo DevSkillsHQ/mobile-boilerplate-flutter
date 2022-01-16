@@ -27,6 +27,8 @@ class MealSelectionScreen extends StatelessWidget {
 }
 
 Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
+  final mealId = meals.last.id > 10 ? 0 : meals.last.id;
+
   return Column(children: [
     Container(
       height: MediaQuery.of(context).size.height * 0.8,
@@ -73,7 +75,8 @@ Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
           isBold: true,
         ),
         onPressed: () {
-          BlocProvider.of<MealCubit>(context).getData(mealId: meals.last.id > 10 ? 0 : meals.last.id);
+          BlocProvider.of<MealCubit>(context)
+              .getData(mealId: mealId);
         },
         style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
