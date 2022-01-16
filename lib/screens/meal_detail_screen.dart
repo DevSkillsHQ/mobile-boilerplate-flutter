@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_boilerplate_flutter/cubit/meal_cubit.dart';
 import 'package:mobile_boilerplate_flutter/data/meal.dart';
+import 'package:mobile_boilerplate_flutter/widgets/image_container.dart';
 
 class MealDetailScreen extends StatefulWidget {
   const MealDetailScreen({Key? key}) : super(key: key);
@@ -34,14 +35,17 @@ Widget _buildMealDetail(BuildContext context, Meal meal) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 20,
-        ),
-        TextButton(
-          child: Text('Go back'),
-          onPressed: () {
-            BlocProvider.of<MealCubit>(context).goHome();
-          },
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 20.0,
+            top: 30.0,
+          ),
+          child: TextButton(
+            child: Text('Go back'),
+            onPressed: () {
+              BlocProvider.of<MealCubit>(context).goHome();
+            },
+          ),
         ),
         Expanded(
           child: Padding(
@@ -55,9 +59,17 @@ Widget _buildMealDetail(BuildContext context, Meal meal) {
                     height: MediaQuery.of(context).size.width * 0.95,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Image.network(meal.imageUrl)],
+                      children: [
+                        ImageContainer(
+                          imagePath: meal.imageUrl,
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          height: MediaQuery.of(context).size.height * 0.8,
+                        )
+                      ],
                     ),
                   ),
+                  const SizedBox(height: 10),
+                  Divider(),
                   Text(meal.title,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
