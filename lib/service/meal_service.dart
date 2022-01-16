@@ -23,18 +23,21 @@ class MealService {
     }
   }
 
-  Future<List<Meal>> getNextFourMeals(int id) async {
+  Future<List<Meal>> getNextFourMeals(Meal meal) async {
+    if (meal.id > 10) {
+      return getMeals();
+    }
     var response =
-        await http.get(Uri.parse(baseUrl + "/meals/limit/4/offset/$id"));
+        await http.get(Uri.parse(baseUrl + "/meals/limit/4/offset/${meal.id}"));
     if (response.statusCode == 200) {
+      List<Meal> newMeals = [];
       Map<String, dynamic> list = jsonDecode(response.body);
-      List<Meal> meals = [];
 
-      for (var meal in list["meal_roulette_app_meals"]) {
-        meals.add(Meal.fromJson(meal));
+      for (var meal in list["meal_roulette_app_meals_aggregate"]["nodes"]) {
+        newMeals.add(Meal.fromJson(meal));
       }
 
-      return meals;
+      return newMeals;
     } else {
       throw Exception('Failed to load meals');
     }
