@@ -76,6 +76,7 @@ Widget _buildMealDetail(BuildContext context, Meal meal) {
                   AppText(text: meal.description!),
                   const SizedBox(height: 10),
                   AppText(text: 'Ingredients', fontSize: 16, isBold: true),
+                  const SizedBox(height: 10),
                   AppText(text: meal.ingredients!)
                 ],
               ),
