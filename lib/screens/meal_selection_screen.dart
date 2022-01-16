@@ -15,9 +15,11 @@ class MealSelectionScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is MealLoaded) {
             return _buildMealSelection(context, state.meals);
+          } else if (state is MealLoading) {
+            return _buildMealShimmer(context);
           } else {
             return Center(
-              child: CircularProgressIndicator(),
+              child: Text('help'),
             );
           }
         },
@@ -75,9 +77,59 @@ Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
           isBold: true,
         ),
         onPressed: () {
-          BlocProvider.of<MealCubit>(context)
-              .getData(mealId: mealId);
+          BlocProvider.of<MealCubit>(context).getData(mealId: mealId);
         },
+        style: ElevatedButton.styleFrom(
+          shape: CircleBorder(),
+        ),
+      ),
+    ),
+  ]);
+}
+
+Widget _buildMealShimmer(BuildContext context) {
+  return Column(children: [
+    Container(
+      height: MediaQuery.of(context).size.height * 0.8,
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.8,
+        ),
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return InkWell(
+            child: Container(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  ImageContainer(
+                      imagePath: '',
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.22),
+                  Expanded(
+                    child: AppText(text: '', isBold: true, centered: true),
+                  ),
+                ],
+              ),
+            ),
+            onTap: () {},
+          );
+        },
+      ),
+    ),
+    Divider(),
+    ConstrainedBox(
+      constraints: BoxConstraints.tightFor(width: 100, height: 100),
+      child: ElevatedButton(
+        child: AppText(
+          text: 'Refresh',
+          fontSize: 16,
+          isBold: true,
+        ),
+        onPressed: () {},
         style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
         ),

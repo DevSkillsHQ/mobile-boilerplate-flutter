@@ -23,9 +23,7 @@ class _MealLogicState extends State<MealLogic> {
           return const WelcomeScreen();
         }
         if (state is MealLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return MealSelectionScreen();
         }
         if (state is MealLoaded) {
           return MealSelectionScreen();

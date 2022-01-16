@@ -16,7 +16,7 @@ class MealCubit extends Cubit<MealState> {
   late final Meal meal;
 
   void getData({int? mealId}) async {
-    emit(MealLoading());
+    emit(MealLoading([]));
     try {
       meals = await data.getMeals(mealId: mealId);
 
@@ -27,7 +27,6 @@ class MealCubit extends Cubit<MealState> {
   }
 
   detailPage({required Meal meal}) async {
-    emit(MealLoading());
     try {
       meal = await data.getMeal(meal);
       emit(MealDetail(meal));
