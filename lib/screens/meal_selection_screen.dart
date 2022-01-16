@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_boilerplate_flutter/cubit/meal_cubit.dart';
 import 'package:mobile_boilerplate_flutter/data/meal.dart';
+import 'package:mobile_boilerplate_flutter/widgets/image_container.dart';
 
 class MealSelectionScreen extends StatelessWidget {
   const MealSelectionScreen({Key? key}) : super(key: key);
@@ -25,32 +26,44 @@ class MealSelectionScreen extends StatelessWidget {
 }
 
 Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
-  return GridView.builder(
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      childAspectRatio: 1.0,
-    ),
-    itemCount: 4,
-    itemBuilder: (context, index) {
-      return InkWell(
-        child: Container(
-          height: MediaQuery.of(context).size.height / 2,
-          width: MediaQuery.of(context).size.width / 2,
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: Image.network(meals[index].imageUrl)),
-              Expanded(
-                child: Text(meals[index].title, style: TextStyle(fontSize: 10))),
-            ],
-          ),
+  return Column(children: [
+    Container(
+      height: MediaQuery.of(context).size.height * 0.8,
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.8,
         ),
-        onTap: () {
-          BlocProvider.of<MealCubit>(context).detailPage(meal: meals[index]);
-          Navigator.pop(context);
+        itemCount: meals.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            child: Container(
+              height: 200,
+              width: double.maxFinite,
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  ImageContainer(imagePath: meals[index].imageUrl, width: 100),
+                  Text(
+                    meals[index].title,
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            onTap: () {
+              BlocProvider.of<MealCubit>(context)
+                  .detailPage(meal: meals[index]);
+            },
+          );
         },
-      );
-    },
-  );
+      ),
+    ),
+    TextButton(
+        child: Text('Refresh'),
+        onPressed: () {
+          BlocProvider.of<MealCubit>(context).getNewData(meals.last);
+        }),
+  ]);
 }
