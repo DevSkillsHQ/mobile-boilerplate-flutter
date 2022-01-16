@@ -49,6 +49,6 @@ class MealCubit extends Cubit<MealState> {
   }
 
   goHome() {
-    emit(MealLoaded(meals));
+    emit(MealLoaded(newMeals));
   }
 }
