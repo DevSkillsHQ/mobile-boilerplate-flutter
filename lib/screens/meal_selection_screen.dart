@@ -38,16 +38,21 @@ Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
         itemBuilder: (context, index) {
           return InkWell(
             child: Container(
-              height: 200,
+              height: double.maxFinite,
               width: double.maxFinite,
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
-                  ImageContainer(imagePath: meals[index].imageUrl, width: 100),
-                  Text(
-                    meals[index].title,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
+                  ImageContainer(
+                      imagePath: meals[index].imageUrl,
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.22),
+                  Expanded(
+                    child: Text(
+                      meals[index].title,
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
@@ -60,10 +65,21 @@ Widget _buildMealSelection(BuildContext context, List<Meal> meals) {
         },
       ),
     ),
-    TextButton(
-        child: Text('Refresh'),
+    Divider(),
+    ConstrainedBox(
+      constraints: BoxConstraints.tightFor(width: 100, height: 100),
+      child: ElevatedButton(
+        child: Text(
+          'Refresh',
+          style: TextStyle(fontSize: 16),
+        ),
         onPressed: () {
           BlocProvider.of<MealCubit>(context).getNewData(meals.last);
-        }),
+        },
+        style: ElevatedButton.styleFrom(
+          shape: CircleBorder(),
+        ),
+      ),
+    ),
   ]);
 }
