@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="co.devskills.mobile_boilerplate_flutter">
+    package="io.alvalabs.mobile_boilerplate_flutter">
    <application
         android:label="mobile_boilerplate_flutter"
         android:icon="@mipmap/ic_launcher">
